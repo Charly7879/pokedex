@@ -35,6 +35,12 @@ $ npm run start:prod
 docker-compose up -d
 ```
 
+## Rellenar base de datos
+
+```
+curl --location 'localhost:3000/api/seed'
+```
+
 ## Run tests
 
 ```bash
