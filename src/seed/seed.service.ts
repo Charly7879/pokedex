@@ -18,24 +18,36 @@ export class SeedService {
   async executeSeed() {
 
     /** Consulta al api pokeApi */
-    const { data } = await this.axios.get<PokeResponse>('https://pokeapi.co/api/v2/pokemon?limit=20');
+    const { data } = await this.axios.get<PokeResponse>('https://pokeapi.co/api/v2/pokemon?limit=30');
+
+    /** Vaciar tabla pokemons */
+    await this.pokemonModel.deleteMany({}); // delete * from pokemons
+
+    /** Opción 2: Colección de pokemons */
+    const pokemonToInsert: { name: string, no: number }[] = [];
 
     data.results.forEach(async ({ name, url }) => {
+
       const segments = url.split('/');
       const no = +segments[segments.length - 2];
-      //console.log({ name, no });
+
+      pokemonToInsert.push({ name, no });
+
+      /** Opción: 1 Colección de promesas pokemonModel.create */
+      /* const insertPromisesArray: Promise<Pokemon>[] = [];
+
+      insertPromisesArray.push(this.pokemonModel.create({ name, no }));
 
       try {
-        await this.pokemonModel.create({
-          name,
-          no,
-        });
+        await Promise.all(insertPromisesArray);
       } catch (error) {
         console.log(error);
         throw new InternalServerErrorException(`Cant create pokemon - Check server log`);
-      }
+      } */
 
     });
+
+    await this.pokemonModel.insertMany(pokemonToInsert);
 
     return 'Seed executed!';
   }
