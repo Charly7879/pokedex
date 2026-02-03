@@ -13,7 +13,10 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true, // Permitir campos sólo del dto
       forbidNonWhitelisted: true, // Mensaje que la propiedad no está permitida
-      transform: true,
+      transform: true, // Transformar los datos en tipos Ej: number, string, boolean, etc
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
 
