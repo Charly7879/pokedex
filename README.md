@@ -29,6 +29,10 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Variable de entorno
+
+Clonar el archivo **.env.template** y reemplazar por tus variables
+
 ## Levantar base de datos
 
 ```
