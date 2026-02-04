@@ -74,4 +74,8 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> development
